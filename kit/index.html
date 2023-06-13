@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KITT</title>
+    <style>
+        body{
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: black;
+        }
+        #light-panel{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+
+            width: fit-content;
+            height: fit-content;
+        }
+        #light-panel .light{
+            width: 50px;
+            height: 20px;
+            border: 0.5px solid gray;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+        <button id="btnStart" type="button">Start</button>
+        <button id="btnEnd" type="button">Stop</button>
+
+        <audio id="audio" autoplay src="assets/audio/Knight%20Rider%20Theme%20-%20Ringtone.mp3" ></audio>
+
+    <section id="light-panel">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+    </section>
+
+    <section>
+        <script src="assets/lib/jQuery/jquery-3.6.4.min.js"></script>
+        <script>
+            var Lightnumber=1;
+            var declaration="RIGHT"
+            var Lights=$('.light');
+            console.log(Lights);
+
+            function updateLights() {
+                $('.light').css({background: 'white'});
+                Lights[Lightnumber].style.background='red';
+                    if (Lightnumber>0){
+                        Lights[Lightnumber-1].style.background='pink';
+                    }
+                    if (Lightnumber<6){
+                        Lights[Lightnumber+1].style.background='pink';
+                    }
+                    if (Lightnumber===6){
+                        declaration='LEFT';
+                    }
+                    if (Lightnumber===0){
+                        declaration='RIGHT';
+                    }
+                    if (declaration==='RIGHT'){
+                        Lightnumber++;
+                    }else{
+                        Lightnumber--;
+                    }
+            }
+            var interval;
+            $('#btnStart').click(()=>{
+                interval=setInterval(updateLights,100);
+                $('#audio')[0].play();
+            })
+            $('#btnEnd').click(()=>{
+                clearInterval(interval);
+                $('#audio')[0].pause();
+            })
+        </script>
+    </section>
+</body>
+</html>
